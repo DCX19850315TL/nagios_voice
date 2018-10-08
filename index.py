@@ -11,7 +11,7 @@ import sys,os
 import urllib
 import json
 
-#db = web.database(dbn='mysql',user='root',pw='123456',db='nagios_voice')
+db = web.database(dbn='mysql',user='root',pw='123456',db='nagios_voice',host='localhost')
 
 render = web.template.render('templates/')
 
@@ -19,7 +19,8 @@ urls = (
     #'/','index'
     #'/(.*)','index'
     #'/','index',
-    '/','nagios_notification'
+    '/','nagios_notification',
+    '/index','nagios_view'
 
 )
 
@@ -47,16 +48,33 @@ class nagios_notification:
         data_list = data.split(',')
         server_type = data_list[1].strip('+').strip('"').strip('"')
         business = data_list[2].strip('+').strip('"').strip(']').strip('"')
-        if server_type == Hostname:
-            if "_P" in business:
-                print "点对点"
-            elif "_M" in business:
-                print "会议"
-            elif "_C" in business:
-                print "CDN"
+        db.insert('nagios_voice',server_type=server_type,business=business,status=0)
+        return "data ok"
+
+class nagios_view():
+    def GET(self):
+        status_list = []
+        status = db.select('nagios_voice',what="id,server_type,business",where="status = 0")
+        for item in status:
+            status_list.append(item)
+        if status_list:
+            id_list = status_list[0].id
+            server_type_list = status_list[0].server_type
+            business_list = status_list[0].business
+            db.update('nagios_voice', where='id=$id', vars={'id': id_list},status=1)
+            #db.update('nagios_voice', where="id = $id_list", status=1)
+            print id_list
+            if "_P" in business_list:
+                return render.index(server_type_list,"P")
+
+            elif "_M" in business_list:
+                return render.index(server_type_list,"M")
+            elif "_C" in business_list:
+                return render.index(server_type_list,"C")
             else:
-                print "点对点"
-        return render.index(server_type)
+                return render.index(server_type_list,"P")
+        else:
+            pass
 
 if __name__ == "__main__":
     app = web.application(urls,globals())

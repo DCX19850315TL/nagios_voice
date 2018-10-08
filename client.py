@@ -29,6 +29,6 @@ def RequestUrl(host,port,source,params,timeout):
 if __name__ == "__main__":
     try:
         RequestData = urllib.urlencode({"data":json.dumps(data)})
-        result = RequestUrl("10.160.92.53","8080","/",RequestData,30)
+        result = RequestUrl("10.160.92.65","8080","/",RequestData,30)
     except Exception,e:
         print e

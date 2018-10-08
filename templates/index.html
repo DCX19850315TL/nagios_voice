@@ -1,5 +1,24 @@
-$def with (name)
-$if name:
-    I just wanted to say <em>hello</em> to $name.
-$else:
-    <em>Hello</em>, world!
+$def with(server_type,business)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <!--<meta http-equiv="refresh" content="10">-->
+    <title>index</title>
+</head>
+<body>
+    $if server_type=='Hostname':
+        $if business=='P':
+            I just wanted to say <em>hello</em> to $server_type.
+            <audio controls="controls" autoplay="autoplay">
+                <source src="../static/song.ogg" type="audio/ogg">
+            </audio>
+    $else:
+        I just wanted to say <em>hello</em>
+        <audio controls="controls" autoplay="autoplay">
+            <source src="../static/song.ogg" type="audio/ogg">
+        </audio>
+</body>
+</html>
+
