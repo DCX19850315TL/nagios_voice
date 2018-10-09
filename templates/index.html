@@ -4,21 +4,50 @@ $def with(server_type,business)
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <!--<meta http-equiv="refresh" content="10">-->
+    <meta http-equiv="refresh" content="5">
     <title>index</title>
 </head>
 <body>
     $if server_type=='Hostname':
         $if business=='P':
-            I just wanted to say <em>hello</em> to $server_type.
+            <p>点对点主机报警</p>
+            <br>
+            <audio controls="controls" autoplay="autoplay">
+                <source src="../static/p.mp3" type="audio/ogg">
+            </audio>
+        $elif business=='M':
+            <p>极会议主机报警</p>
+            <br>
+            <audio controls="controls" autoplay="autoplay">
+                <source src="../static/m.mp3" type="audio/ogg">
+            </audio>
+        $elif business=='C':
+            <p>CDN主机报警</p>
+            <br>
+            <audio controls="controls" autoplay="autoplay">
+                <source src="../static/c.mp3" type="audio/ogg">
+            </audio>
+    $elif server_type=='Server':
+        $if business=='P':
+            <p>点对点服务报警</p>
+            <br>
             <audio controls="controls" autoplay="autoplay">
                 <source src="../static/song.ogg" type="audio/ogg">
             </audio>
+        $elif business=='M':
+            <p>极会议服务报警</p>
+            <br>
+            <audio controls="controls" autoplay="autoplay">
+                <source src="../static/Move1.ogg" type="audio/ogg">
+            </audio>
+        $elif business=='C':
+            <p>CDN服务报警</p>
+            <br>
+            <audio controls="controls" autoplay="autoplay">
+                <source src="../static/xpln.ogg" type="audio/ogg">
+            </audio>
     $else:
-        I just wanted to say <em>hello</em>
-        <audio controls="controls" autoplay="autoplay">
-            <source src="../static/song.ogg" type="audio/ogg">
-        </audio>
+        <p>ITOP没有报警</p>
 </body>
 </html>
 

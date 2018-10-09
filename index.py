@@ -61,12 +61,9 @@ class nagios_view():
             id_list = status_list[0].id
             server_type_list = status_list[0].server_type
             business_list = status_list[0].business
-            db.update('nagios_voice', where='id=$id', vars={'id': id_list},status=1)
-            #db.update('nagios_voice', where="id = $id_list", status=1)
-            print id_list
+            db.update('nagios_voice', where='id=$id', vars={'id': id_list}, status=1)
             if "_P" in business_list:
                 return render.index(server_type_list,"P")
-
             elif "_M" in business_list:
                 return render.index(server_type_list,"M")
             elif "_C" in business_list:
@@ -74,7 +71,7 @@ class nagios_view():
             else:
                 return render.index(server_type_list,"P")
         else:
-            pass
+            return render.index("aa","aa")
 
 if __name__ == "__main__":
     app = web.application(urls,globals())
